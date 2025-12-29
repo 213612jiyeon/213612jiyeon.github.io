@@ -244,6 +244,7 @@ main {
 
     .portfolio-wrap {
         margin: 0 auto;
+        width: 128rem;
     }
 
     h2 {
@@ -254,8 +255,8 @@ main {
     }
 
     .portfolio-list {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        display: flex;
+        flex-wrap: wrap;
         justify-content: center;
         gap: 5rem;
         
@@ -265,6 +266,8 @@ main {
         }
         
         li {
+            width: calc(50% - 2.5rem);
+
             a {
                 background-color: #5c5c5c;
                 display: block;
@@ -286,6 +289,10 @@ main {
             .button-box {
                 gap: 2rem;
                 display: flex;
+
+                li {
+                    width: auto;
+                }
 
                 button {
                     line-height: 2;
