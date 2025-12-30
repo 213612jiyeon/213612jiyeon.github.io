@@ -94,11 +94,10 @@ body.on {
         cursor: pointer;
     }
 }
-/* 나중에 수정 */
+
 .banner-control {
     width: 300px;
     height: 20px;
-    background-color: #fc0;
 }
 .btn-showhide {
     width: 9rem;
@@ -1394,7 +1393,7 @@ body.on {
         content: "";
         width: 41rem;
         height: 100%;
-        background: #f0f0f0 url(../img/ceo-photo.png) no-repeat center / cover;
+        background: #f0f0f0 url(../img/ceo-photo.png) no-repeat bottom / 100%;
         position: absolute;
         right: 0; top: 0;
     }
