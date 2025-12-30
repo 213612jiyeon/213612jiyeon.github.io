@@ -270,6 +270,9 @@ main {
 
             .site-img {
                 background-color: #5c5c5c;
+                background-image: url(/nhnace-img.png);
+                background-size: cover;
+                background-repeat: no-repeat;
                 display: block;
                 width: 60rem;
                 height: 40rem;
@@ -279,6 +282,14 @@ main {
                 &:hover {
                     box-shadow: 2px 2px 5px rgba(0, 0, 0, .3);
                 }
+            }
+
+            &:nth-child(2) .site-img {
+                background-image: url(/nhis-img.png);
+            }
+
+            &:nth-child(3) .site-img {
+                background-image: url(/kia-img.png);
             }
 
             p {
