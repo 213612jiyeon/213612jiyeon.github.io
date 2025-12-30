@@ -1,4 +1,6 @@
-
+/* =========================
+    1) 히스토리 팝업 열기/닫기
+    ========================= */
     document.addEventListener('DOMContentLoaded', () => {
     const historyBtns = document.querySelectorAll('.history-button');
     const historyShows = document.querySelectorAll('.history-show');
@@ -572,4 +574,3 @@
         if (defaultSrc) mainImage.src = defaultSrc;
     }
 });
-
