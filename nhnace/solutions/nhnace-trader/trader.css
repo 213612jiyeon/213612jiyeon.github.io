@@ -265,7 +265,7 @@ button {
 
 .main-box1 {
     height: 60rem;
-    background: url("/nhnace/img/trader_banner.png") center/cover no-repeat;
+    background: url(/nhnace/img/trader_banner.png) center/cover no-repeat;
     background-color: #ff2211;
     color: #fff;
 
@@ -746,4 +746,5 @@ button {
             }
         }
     }
+
 }
