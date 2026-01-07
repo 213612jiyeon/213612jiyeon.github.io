@@ -490,8 +490,6 @@ button {
 }
 
 .main-box4 {
-    height: 550rem;
-
     .box4-textBox {
         display: flex;
         flex-direction: column;
@@ -587,7 +585,8 @@ button {
 
 
 .main-box5 {
-    height: 80rem;
+    background-color: #f2f3f5;
+    padding: 10rem;
 
     h2 {
         font-size: 3.5rem;
@@ -597,7 +596,7 @@ button {
     .box-wrapper {
         display: flex;
         justify-content: space-between;
-        padding: 30rem 16rem;
+        padding: 0 16rem;
     }
 
     .left-box {
@@ -746,5 +745,4 @@ button {
             }
         }
     }
-
 }
