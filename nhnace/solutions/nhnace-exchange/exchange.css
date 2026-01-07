@@ -1,386 +1,669 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="trader.css">
-    <title>Document</title>
-</head>
-<body>
-    <header class="nhn-header">
-        <div class="header-navi-wrap">
-            <div class="header-inner">
-                <h1 class="logo">
-                    <a href="/nhnace/index.html">
-                        <img src="/nhnace/img/nhn-logo.png" alt="">
-                    </a>
-                </h1>
-                <ul class="menu gnb">
-                    <li>
-                        <a href="" class="menu-title">Solutions</a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a href="/nhnace/solutions/nhnace-trader/trader.html">ACE Trader</a>
-                            </li>
-                            <li>
-                                <a href="/nhnace/solutions/nhnace-exchange/exchange.html">ACE eXchange</a>
-                            </li>
-                            <li>
-                                <a href="/nhnace/solutions/nhnace-adlib/adlib.html">ACE ADLIB</a>
-                            </li>
-                        </ul>
-                    </li>
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pretendard-Bold';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pretendard-SemiBold';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
+* {
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    font-size: 10px;
+    font-family: 'Pretendard-Regular';
+}
+
+body {
+    overflow-x: hidden;
+}
+
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.hide {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+}
+
+.content-wrap {
+    width: 100%;
+    max-width: 158.4rem;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.nhn-header {
+    height: 9rem;
+}
+
+.header-wrap {
+    padding-top: 15rem;
+}
+
+.header-navi-wrap {
+    background-color: rgba(255,255,255,0.1);
+    backdrop-filter: blur(15px);
+    line-height: 9rem;
+    width: 100%;
+    position: fixed;
+    z-index: 9999;
+    padding: 0 2rem;
+
+
+    transition: background-color .2s ease-in-out;
+    
+    &:hover {
+        background-color: #fff;
+    }
+
+    .header-inner {
+        display: flex;
+        width: 100%;
+        max-width: 158.4rem;
+        margin: 0 auto;
+        justify-content: space-between;
+        line-height: 9rem; 
+        align-items: center;
+        text-align: center;
+
+        .logo {
+            a {
+                display: flex;
+
+                img {
+                    width: 14.5rem;
+                    height: 2.6rem;
+                }
+            }
+        }
+
+        .gnb {
+            display: flex;
+            gap: 17rem;
+            height: 100%;
+
+            li {
+                width: 100%;
+                position: relative;
+
+                &:hover .menu-title {
+                    color: #ff2211;
+                }
+
+                &:hover .menu-title::before {
+                    background-color: #ff2211;
+                    transform: translateX(-50%) scale(1);
+                }
+            }
+
+            .menu-title {
+                display: block;
+                font-size: 1.8rem;
+                transition: all .3s;
+                position: relative;
+                text-align: center;
+                height: auto;
+
+                &::before {
+                    content: "";
+                    width: 13rem;
+                    height: .3rem;
+                    background-color: #ff2211;
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translateX(-50%) scale(0);
+                    transition: all .3s;
+                }
+            }
+        }
+
+        /* gnb의 서브 메뉴 */
+        .sub-menu {
+            display: none;
+            position: absolute;
+            width: 13rem;
+            left: 50%;
+            height: 0;
+            transform: translateX(-50%);
+            z-index: 999;
+            padding-top: 2.5rem;
+            
+            li {
+                a {
+                    display: block;
+                    line-height: 4rem;
+                    font-size: 1.5rem;
+                    color: #8f918f;
+
+                    &:hover {
+                        color: #ff2211;
+                    }
+
+                    &:hover .sub-title{
+                        color: #000;
+                    }
+                }
+            }
+        }
+
+        .sub-menu-box {
+            position: absolute;
+            top: 100%;
+            width: 100%;
+            height: 0;
+            left: 0;
+            background-color: #fff;
+            transition: .3s;
+        }
+
+        .sub-menu-box.open {
+            height: 25rem;
+        }
+
+        .menu-box {
+            display: flex;
+            gap: 6rem;
+        }
+
+        .language {
+            font-size: 1.6rem;
+            background-color: transparent;
+            border: none;
+            position: relative;
+            display: flex;
+            text-align: left;
+            
+            &::after{
+                content: "";
+                position: absolute;
+                right: -2.4rem;
+                top: .5rem;
+                transform: rotate(180deg);
+                width: 1rem; height: 1rem;
+                background: url(/nhnace/img/language.png) no-repeat center / 100%;
+                transition: .3s;
+            }
+        }
+
+        .language.on {
+            &::after {
+                transform: rotate(0);
+            }
+        }
+
+        .language-wrap {
+            position: relative;
+        }
+
+        .language-setting {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 1rem;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            display: none;
+            overflow: hidden;
+            text-align: left;
+
+            .language-select {
+                display: block;
+                font-size: 1.5rem;
+                padding: 0 1rem;
+                width: 10rem;
+                line-height: 4rem;
+            }
+
+            .language-select.on {
+                background-color: #f8f8f8;
+                color: #ff2211;
+            }
+        }
+
+        .menu-icon {
+            display: block;
+            width: 2.4rem;
+            height: 2.4rem;
+            background-image: url(/nhnace/img/menu.png);
+            background-position: center;
+            background-size: 100%;
+        }
+    }
+}
+
+.textBox {
+    text-align: center;
+    padding: 10rem 0;
+
+    .title {
+        font-size: 4rem;
+        color: #fff;
+    }
+    
+    .sub-title {
+        font-size: 1.7rem;
+        line-height: 1.5;
+    }
+}
+
+
+
+.main-box1 {
+    height: 60rem;
+    background: url(/nhnace/img/trader_banner.png) center/cover no-repeat;
+    background-color: #ff2211;
+    color: #fff;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+
+    position: relative;
+}
+
+.page-location {
+    display: flex;
+    gap: 1rem;
+    padding: 0 2rem;
+
+    .home-logo {
+        width: 2rem;
+        height: 2rem;
+        background: url(/nhnace/img/home-icon.png) center / 100%;
+    }
+
+    p, span {
+        font-size: 1.5rem;
+    }
+}
+
+.text-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+
+    width: 100%;
+    max-width: none;
+}
+
+.left-box {
+    .trader-title {
+        font-size: 6rem;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        
+        span {
+            font-size: 4rem;
+        }
+    }
+
+    .trader-exp {
+        font-size: 2rem;
+    }
+}
+
+.right-box {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .traderBtn {
+        color: #fff;
+        display: block;
+        background-color: rgba(0, 0, 0, 0.4);
+        font-size: 2rem;
+        width: 25rem;
+
+        text-align: center;
+        line-height: 6rem;
+        border-radius: 1rem;
+    }
+}
+
+.inner-tab {
+    backdrop-filter: blur(15px);  /* 요소 뒤에서 효과 적용 */
+    position: absolute;
+    line-height: 7rem;
+    width: 100%;
+    left: 0; bottom: 0;
+    
+    .inner-list {
+        display: flex;
+        li {
+            a {
+                padding: 0 4.5rem;
+                font-size: 1.7rem;
+                color: #fff;
+            }
+        }
+    }
+}
+
+.main-box2 {
+    padding-top: 7rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .title-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        .exchange-title {
+            font-size: 6rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+    
+            span {
+                font-size: 4rem;
+            }
+        }
+        .exchange-subTitle {
+            font-size: 1.4rem;
+            color: #9f9f9f;
+        }
+        .exchangeExp {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 1.7rem;
+            line-height: 1.5;
+        }
+    }
+
+    .imgBox {
+        width: 100rem;
+        height: 40rem;
+        background: url(/nhnace/img/exchangeImg1.png) no-repeat center / 100%;
+    }
+}
+
+.main-box3 {
+    background: url(/nhnace/img/exchange_bg.png);
+    padding-bottom: 15rem;
+
+    .partners-list {
+        display: flex;
+        gap: 7rem;
+        justify-content: center;
+        
+        .list-item {
+            background-color: #fff;
+            width: 55rem;
+            padding: 6.5rem 6rem;
+            border-radius: 3rem;
+            background-color: #fff;
+
+            .dspTitle {
+                font-size: 3rem;
+                padding-bottom: 7rem;
+            }
+
+            .partner-right-box {
+                h3 {
+                    font-size: 2rem;
+                    line-height: 2;
+                }
+    
+                p {
+                    font-size: 1.7rem;
+                    color: #929496;
+                    line-height: 1.5;
+                }
+            }
+        }
+    }
+
+    .dspList {
+        li {
+            display: flex;
+            gap: 2rem;
+        }
+    }
+}
+
+.main-box4 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .title {
+        color: #000;
+    }
+
+    img {
+        justify-content: center;
+    }
+}
+
+.main-box5 {
+    .textBox {
+        .title {
+            color: #000;
+            line-height: 2;
+        }
+        .sub-title {
+            color: #929496;
+            line-height: 1.5;
+        }
+    }
+    .partner-logoList {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5rem;
+    }
+    
+    .partnersBox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .partnersTitle {
+        font-size: 5rem;
+        background-color: #f74342;
+        width: fit-content;
+        color: #fff;
+        font-size: 1.5rem;
+        line-height: 5rem;
+        padding: 0 2rem;
+        border-radius: 2.5rem;
+        margin-top: 4rem;
+    }
+}
+
+.main-box6 {
+    background-color: #f2f3f5;
+    padding: 10rem;
+
+    h2 {
+        font-size: 3.5rem;
+        padding-bottom: 10rem;
+    }
+
+    .box-wrapper {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 16rem;
+    }
+
+    .left-box {
+        .linkBtnBox {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+    
+        .link-btn {
+            color: #fff;
+            display: block;
+            background-color:#000;
+            font-size: 2rem;
+            width: 25rem;
+    
+            text-align: center;
+            line-height: 6rem;
+            border-radius: 1rem;
+        }
+    }
+
+    .right-box {
+        .imgBox {
+            width: 66.4rem;
+            height: 40rem;
+            background: url(/nhnace/img/main5-img.png) center;
+        }
+    }
+}
+
+.nhn-footer {
+    padding: 0 2rem;
+    
+    .footer-wrap {
+        display: flex;
+        justify-content: space-between;
+        padding: 2.8rem 0;
+    }
+
+    .footer-left-box {
+        .logo {
+            margin: 2.5rem 0 1rem 0;
+        }
+
+        .footer-info {
+            li {
+                margin-bottom: .9rem;
+                font-size: 1.3rem;
+            }
+        }
+
+    }
+    
+    .footer-center-box {
+        display: flex;
+        align-items: flex-end;
+
+        .footer-link {
+            display: flex;
+    
+            li {
+                a {
+                    margin: 0 1.2rem;
+                    position: relative;
+                    font-size: 1.3rem;
+    
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        right: -1.3rem;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        width: .2rem;
+                        height: 1.3rem;
+                        background-color: #d9d9d9;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer-right-box {
+        align-items: flex-start;
+        position: relative;
+        .siteBtn {
+            width: 20rem;
+            height: 4rem;
+            background-color: #f1f2f6;
+            text-align: left;
+            border-radius: 2rem;
+            padding: 0 2rem;
+            font-size: 1.3rem;
+            position: relative;
+            
+            &::before {
+                content: "";
+                transition: .3s;
+                position: absolute;
+                background: url(/nhnace/img/language.png) center / 100%;
+                transform: translateY(-50%) rotate(-180deg);
+                width: .9rem;
+                height: .9rem;
+                top: 50%;
+                right: 2rem;
+            }
+        }
+
+        .siteBtn.on {
+            &::before {
+                content: "";
+                position: absolute;
+                background: url(/nhnace/img/language.png) center / 100%;
+                transform: translateY(-50%);
+                width: .9rem;
+                height: .9rem;
+                top: 50%;
+                right: 2rem;
+            }
+        }
+    }
+
+    .site-Link-list {
+        display: none;
+        ul {
+            position: absolute;
+            background-color: #f1f2f6;
+            border-radius: 1rem;
+            padding: 1rem 0;
+            bottom: calc(100% + 1rem);
+
+            li {
+                a {
+                    display: block;
+                    padding: 0 2rem;
+                    line-height: 4rem;
+                    width: 20rem;
+                    font-size: 1.3rem;
                     
-                    <li>
-                        <a href="" class="menu-title">Tesources</a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a href="">Notice</a>
-                            </li>
-                            <li>
-                                <a href="">FAQ</a>
-                            </li>
-                            <li>
-                                <a href="">자료실</a>
-                            </li>
-                            <li>
-                                <a href="">Blog</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="" class="menu-title">Company</a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a href="">회사소개</a>
-                            </li>
-                            <li>
-                                <a href="">오시는 길</a>
-                            </li>
-                            <li>
-                                <a href="">채용</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <div class="sub-menu-box"></div>
-                
-                <div class="menu-box">
-                    <div class="language-wrap">
-                        <button class="language">KOR</button>
-                        <ul class="language-setting">
-                            <li>
-                                <a href="#" class="language-select on">KOR</a>
-                            </li>
-                            <li>
-                                <a href="#" class="language-select">ENG</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <a class="menu menu-icon"></a>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <main class="trader-main">
-        <div class="main-box1">
-            <div class="content-wrap">
-                <div class="main-box1-wrapper">
-                    <div class="page-location">
-                        <span class="home-logo"></span>
-                        <span class="arrow">></span>
-                        <p class="loca-solution">Solutions</p>
-                        <span class="arrow">></span>
-                        <p class="loca-trader">ACE Trader</p>
-                    </div>
-
-                    <div class="text-box">
-                        <div class="left-box">
-                            <h2 class="trader-title">
-                                ACE <span>TRADER</span>
-                            </h2>
-                            <p class="trader-exp">
-                                ACE Trader는 NHN 그룹사의 투명한 데이터와 수준 높은 기술력을 바탕으로<br>정교한 타겟팅, 엄선된 프리미엄 인벤토리를 토대로 서비스를 제공하고 있습니다.
-                            </p>
-                        </div>
-                        <div class="right-box">
-                            <a href="" class="traderBtn">ACE Trader 상품소개서</a>
-                            <a href="" class="traderBtn">AD Center 바로가기</a>
-                        </div>
-                    </div>
-
-                    <div class="inner-tab">
-                        <div class="content-wrap">
-                            <ul class="inner-list">
-                                <li><a href="/nhnace/solutions/nhnace-trader/trader.html" class="inner-tabBtn">ACE Trader</a></li>
-                                <li><a href="/nhnace/solutions/nhnace-exchange/exchange.html"  class="inner-tabBtn">ACE eXchange</a></li>
-                                <li><a href="/nhnace/solutions/nhnace-adlib/adlib.html" class="inner-tabBtn">ACE ADLIB</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="main-box2">
-            <div class="box2-textBox">
-                <h2 class="trader-title">ACE    <span>DMP</span></h2>
-                <p class="dmp-subTitle">타겟팅 광고 오디언스 데이터 플랫폼</p>
-                <p class="dmp-exp">그룹사를 비롯한 신뢰도 높은 채널을 통해 수집된 다양한 데이터를 기반으로, 국내 최대 규모의 오디언스 데이터를 확보하고 있으며,<br>머신러닝 기반의 모델링 기법을 통해 개별 오디언스에 대한 데모, 관심사를 예측하고 다양한 Segment로 분류하여 마케팅에 효과적으로 활용합니다.</p>
-            </div>
-            <div class="dmp-imgBox"></div>
-        </div>
-
-        <div class="main-box3">
-            <div class="content-wrap">
-                <div class="box3-textBox">
-                    <h2 class="title">지원 타겟팅</h2>
-                    <p class="sub-title">Ace Trader는 고객의 니즈에 맞춘 다양한 타겟팅 방식을 지원합니다.</p>
-                </div>
-
-                <ul class="targetingList">
-                    <li>
-                        <div class="list-imgBox">
-                            <span class="img"></span>
-                            <p class="number">01</p>
-                        </div>
-                        <h3>DMP 오디언스 타겟팅</h3>
-                        <p>ACE DMP 외에 외부 제휴 DMP의 오디언스를 자유롭게 조합하여 광고를 노출합니다. 검색, 구매, 방문, 앱설치, 광고 반응 데이터 등 다양한 데이터를 조합할 수 있습니다.</p>
-                    </li>
-                    <li>
-                        <div class="list-imgBox">
-                            <span class="img"></span>
-                            <p class="number">02</p>
-                        </div>
-                        <h3>디타겟팅</h3>
-                        <p>ACE Trader가 제공하는 다양한 타겟팅에서 AND NOT 조건으로 특정 세그먼트를 제외하여 타겟팅이 가능합니다.</p>
-                    </li>
-                    <li>
-                        <div class="list-imgBox">
-                            <span class="img"></span>
-                            <p class="number">03</p>
-                        </div>
-                        <h3>유사유저 타겟팅</h3>
-                        <p>ACE Trader 자체 `Lookalike` 모델을 통해 광고주가 원하는 오디언스와 가장 유사한 특성의 타겟 오디언스를 추출하여 광고를 노출합니다.</p>
-                    </li>
-                    <li>
-                        <div class="list-imgBox">
-                            <span class="img"></span>
-                            <p class="number">04</p>
-                        </div>
-                        <h3>ADID/IDFA 타겟팅</h3>
-                        <p>광고주가 보유하고 있는 ADID/IDFA(광고ID)를 이용한 타겟팅 광고를 노출합니다.</p>
-                    </li>
-                    <li>
-                        <div class="list-imgBox">
-                            <span class="img"></span>
-                            <p class="number">05</p>
-                        </div>
-                        <h3>관심사 타겟팅</h3>
-                        <p>유저의 행동정보를 수집, 분석하여 170여 개의 관심사로 분류하여 관련된 광고를 노출합니다.</p>
-                    </li>
-                    <li>
-                        <div class="list-imgBox">
-                            <span class="img"></span>
-                            <p class="number">06</p>
-                        </div>
-                        <h3>리타겟팅</h3>
-                        <p>광고주의 웹과 앱에서 수집된 정보를 통해 데이터를 조정하여 매체에 광고를 노출합니다.</p>
-                    </li>
-                    <li>
-                        <div class="list-imgBox">
-                            <span class="img"></span>
-                            <p class="number">07</p>
-                        </div>
-                        <h3>카테고리 타겟팅</h3>
-                        <p>언론사/비언론사 구분하여 노출 가능하며, 특정 카테고리 노출을 원할 경우 별도로 문의 부탁드립니다.</p>
-                    </li>
-                    <li>
-                        <div class="list-imgBox">
-                            <span class="img"></span>
-                            <p class="number">08</p>
-                        </div>
-                        <h3>기본 타겟팅</h3>
-                        <p>지역, 연령, OS, 단말기 등 기본 타겟팅은 별도 할증 없이 중복으로 적용 가능합니다.</p>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="main-box4">
-            <div class="content-wrap">
-                <div class="box4-textBox">
-                    <h3 class="title">지원 소재 및 포맷</h3>
-                    <p class="subTitle">Ace Trader는 이미지 배너 뿐만 아니라, 앱 전면 동영상, CTV 영역까지 다양한 포맷을 지원합니다.</p>
-                </div>
-
-                <div class="container-box container-box1">
-                    <p class="container-title">간단한 이미지와 텍스트 소스 활용</p>
-                    <ul class="container-list">
-                        <li>
-                            <div class="left-box">
-                                <h3>이미지+텍스트 배너</h3>
-                                <p>간단한 이미지 2장과 텍스트 만으로 전체 사이즈 베리에이션이 가능합니다. 텍스트 위주 소구 캠페인에 적합한 배너 솔루션입니다.</p>
-                            </div>
-                            <div class="right-box">
-                                <div class="img-box"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="left-box">
-                                <h3>컴포넌트 배너</h3>
-                                <p>광고 캠페인 목적에 최적화된 배너 시스템을 이용하여 다양한 디바이스 및 앱/웹 캠페인에 효과적으로 적용할 수 있는 배너 솔루션입니다.</p>
-                            </div>
-                            <div class="right-box">
-                                <div class="img-box"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="left-box">
-                                <h3>다이나믹 배너</h3>
-                                <p>다양한 상품을 판매하는 커머스 분야에 적합한 배너로 여러 상품의 정보를 실시간으로 반영하여 비교구매에 최적화된 배너 솔루션입니다.</p>
-                            </div>
-                            <div class="right-box">
-                                <div class="img-box"></div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="container-box container-box1">
-                    <p class="container-title">이미지 크리에이티브 활용</p>
-                    <ul class="container-list">
-                        <li>
-                            <div class="left-box">
-                                <h3>고정 이미지 배너</h3>
-                                <p>한 장의 이미지를 활용한 브랜드 메시지나 프로모션을 간결하게 전달합니다. 심플한 구성으로 다양한 웹/앱 광고 캠페인에 적용할 수 있는 배너 솔루션입니다.</p>
-                            </div>
-                            <div class="right-box">
-                                <div class="img-box"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="left-box">
-                                <h3>모션 배너</h3>
-                                <p>움직임과 깜빡임 등의 모션 효과로 유저들의 시선을 단번에 끌어올릴 수 있습니다. 동적인 연출로 주목도를 높이고, 주요 메시지 전달에 최적화되어 있습니다.</p>
-                            </div>
-                            <div class="right-box">
-                                <div class="img-box"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="left-box">
-                                <h3>슬라이딩 배너</h3>
-                                <p>여러 이미지를 순차적으로 전환하는 슬라이딩 방식으로 유저의 액션을 유도해, 텍스트를 강조하고 싶을 때 적합한 배너 솔루션입니다.</p>
-                            </div>
-                            <div class="right-box">
-                                <div class="img-box"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="left-box">
-                                <h3>멀티버튼 배너</h3>
-                                <p>여러 개의 액션 버튼을 배치해 다양한 랜딩으로 유도할 수 있는 배너입니다. 사용자의 선택 폭을 넓히고, 캠페인이나 제품을 동시에 홍보하는 데 효과적입니다.</p>
-                            </div>
-                            <div class="right-box">
-                                <div class="img-box"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="left-box">
-                                <h3>타임 배너</h3>
-                                <p>노출 시간, 카운트다운 등 시간 정보를 활용하여 긴박함을 주는 배너 솔루션으로, 라이브 방송, 개봉, 제품 출시, 이벤트 임박 등 캠페인에 적합합니다.</p>
-                            </div>
-                            <div class="right-box">
-                                <div class="img-box"></div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="container-box container-box1">
-                    <p class="container-title">영상 활용</p>
-                    <ul class="container-list">
-                        <li>
-                            <div class="left-box">
-                                <h3>APP 전면 영상</h3>
-                                <p>CPC 과금 방식을 통해 광고비를 합리적으로 집행할 수 있으며, 앱 실행 시 전면 노출로 광고 주목도를 극대화할 수 있는 영상 광고 솔루션입니다.높은 시인성과 즉각적인 도달 효과로 다양한 앱 캠페인에 적합합니다.</p>
-                            </div>
-                            <div class="right-box">
-                                <div class="img-box"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="left-box">
-                                <h3>CTV</h3>
-                                <p>커넥티드 TV(CTV) 환경에서 다양한 디지털 광고 포맷을 활용하여 대형 스크린을 통한 브랜드 메시지 전달과 캠페인 효과를 극대화할 수 있는 솔루션. SK Btv, U+ tv 실시간 방송(IPTV)과 삼성 TV 플러스 FAST 채널의 Q-Tone 광고 상품 제공, ACE DMP의 ADID와 Set-top Box ID 간 페어링을 통한 오디언스 타겟팅 지원</p>
-                            </div>
-                            <div class="right-box">
-                                <div class="img-box"></div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="main-box5">
-            <div class="content-wrap">
-                <div class="box-wrapper">
-                    <div class="left-box">
-                        <h2>
-                            당신의 마케팅,<br>
-                            NHN ACE와 함께하세요
-                        </h2>
-                        <div class="linkBtnBox">
-                            <a href="" class="link-btn">ACE Trader 상품소개서</a>
-                            <a href="" class="link-btn">AD Center 바로가기</a>
-                        </div>
-                    </div>
-                    <div class="right-box">
-                        <div class="imgBox"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <footer class="nhn-footer">
-        <div class="footer-wrap content-wrap">
-            <div class="footer-left-box">
-                <h1 class="logo">
-                    <a href="">
-                        <div class="hide">로고</div>
-                        <img src="img/nhn-logo.png" alt="">
-                    </a>
-                </h1>
-                <ul class="footer-info">
-                    <li>경기도 성남시 분당구 대왕판교로 645번길 16 플레이뮤지엄 NHN ACE</li>
-                    <li>사업자등록번호 : 313-81-35670대표메일 : atx@nhnace.com</li>
-                    <li>Copyright © NHN ACE All rights reserved.</li>
-                </ul>
-            </div>
-            <div class="footer-center-box">
-                <ul class="footer-link">
-                    <li><a href="">회사소개</a></li>
-                    <li><a href="">이용약관</a></li>
-                    <li><a href="">개인정보 처리방침</a></li>
-                    <li><a href="">채용</a></li>
-                </ul>
-            </div>
-            <div class="footer-right-box">
-                <button class="siteBtn">Family Site</button>
-                <div class="site-Link-list">
-                    <ul>
-                        <li><a href="">NHN</a></li>
-                        <li><a href="">NHNKCP</a></li>
-                        <li><a href="">NHNCLOUD</a></li>
-                        <li><a href="">NHNAD</a></li>
-                        <li><a href="">NHN PAYCO</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <script src="trader.js"></script>
-</body>
-</html>
+                    &:hover {
+                        background-color: #f7f9ff;
+                    }
+                }
+            }
+        }
+    }
+}
