@@ -508,6 +508,9 @@ button {
 }
 
 .main-box6 {
+    background-color: #f2f3f5;
+    padding: 10rem;
+
     h2 {
         font-size: 3.5rem;
         padding-bottom: 10rem;
@@ -516,7 +519,7 @@ button {
     .box-wrapper {
         display: flex;
         justify-content: space-between;
-        padding: 30rem 16rem;
+        padding: 0 16rem;
     }
 
     .left-box {
